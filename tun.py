@@ -40,7 +40,7 @@ def get_command(rule):
         options = '-o ExitOnForwardFailure=%s' % eof
     else:
         options = ''
-    options = options + ' -fL'
+    options = options + ' -vfL'
 
     if 'wait' in rule['tunnel']:
         end = 'sleep %s' % rule['tunnel']['wait']
@@ -100,10 +100,11 @@ def connect(name, file_):
 
     if name in conf['rules']:
         command = get_command(conf['rules'][name])
-    create_tunnel(command)
+        create_tunnel(command)
 
-    if 'launch' in conf['rules'][name]:
-        launcher(conf['rules'][name], conf['bins'])
+        if 'launch' in conf['rules'][name]:
+            launcher(conf['rules'][name], conf['bins'])
+
 
 if __name__ == '__main__':
     tun()
